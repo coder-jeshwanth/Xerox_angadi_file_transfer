@@ -48,6 +48,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Refer to global CORS config
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/files/**").permitAll()
+                        .requestMatchers("/api/user/check-username").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/api/**").permitAll()

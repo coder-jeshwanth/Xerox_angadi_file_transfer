@@ -19,4 +19,7 @@ public interface FileService {
     List<FileResponseDto> getUserFilesByUserName(String username);
 
     UserFile getFileById(Long fileId);
+    void deleteAllFiles();
+    List<String> getAllUserNames();
+
 }

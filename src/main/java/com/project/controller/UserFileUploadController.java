@@ -63,4 +63,31 @@ public class UserFileUploadController {
         List<FileResponseDto> userFiles = fileService.getUserFilesByUserName(username);
         return ResponseEntity.ok(userFiles);
     }
+
+    @PostMapping("/checkUsername")
+    public ResponseEntity<Object> checkIfUserNameExists(@RequestParam("username") String username) {
+        try {
+            // Call the service to get all existing usernames
+            List<String> existingUserNames = fileService.getAllUserNames();
+
+            // Check if the provided username already exists
+            if (existingUserNames.contains(username)) {
+                return ResponseEntity.badRequest().body(new Object() {
+                    public final String status = "error";
+                    public final String message = "User name already exists";
+                });
+            }
+
+            // If the name does not exist, return a success response
+            return ResponseEntity.ok(new Object() {
+                public final String status = "success";
+                public final String message = "User name is available";
+            });
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Object() {
+                public final String status = "error";
+                public final String message = "An error occurred while checking the user name: " + e.getMessage();
+            });
+        }
+    }
 }

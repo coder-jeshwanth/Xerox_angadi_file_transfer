@@ -100,6 +100,27 @@ public class OwnerController {
     }
 
     /**
+     * Delete all files from the database and return a success message.
+     *
+     * @return Response indicating success or an error
+     */
+    @DeleteMapping("/files/deleteAll")
+    public ResponseEntity<?> deleteAllFiles() {
+        try {
+            // Call the service method to delete all files
+            fileService.deleteAllFiles();
+
+            return ResponseEntity.ok(createSuccessResponse(
+                    "All files deleted successfully",
+                    "All file records have been removed from the database."
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(createErrorResponse("Error deleting files", e.getMessage()));
+        }
+    }
+
+    /**
      * Display all files and their details.
      *
      * @return Response with all files or an error

@@ -74,6 +74,46 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    @Transactional
+    public void deleteAllFiles() {
+        // Fetch all files before deleting
+        List<UserFile> allFiles = userFileRepository.findAll();
+
+        // Delete all files in the database
+        userFileRepository.deleteAll();
+
+        // Iterate over the files and attempt to delete their parent directories
+        allFiles.forEach(file -> {
+            File fileOnDisk = new File(file.getFilePath());
+            File parentFolder = fileOnDisk.getParentFile(); // Get parent folder (user folder)
+
+            if (parentFolder.exists() && parentFolder.isDirectory()) {
+                // Delete all contents of the folder to ensure it's empty
+                File[] filesInFolder = parentFolder.listFiles();
+                if (filesInFolder != null) {
+                    for (File f : filesInFolder) {
+                        f.delete(); // Delete each file in the folder
+                    }
+                }
+
+                // Attempt to delete the folder
+                if (parentFolder.delete()) {
+                    System.out.println("User folder deleted: " + parentFolder.getAbsolutePath());
+                } else {
+                    System.err.println("Failed to delete user folder: " + parentFolder.getAbsolutePath());
+                }
+            }
+        });
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> getAllUserNames() {
+        // Fetch all unique usernames from the database
+        return userFileRepository.findAllUserNames();
+    }
+
+    @Override
     public List<FileResponseDto> getAllFiles() {
         List<UserFile> files = userFileRepository.findAll();
 
