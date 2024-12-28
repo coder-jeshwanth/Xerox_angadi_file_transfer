@@ -17,5 +17,6 @@ public interface FileService {
     List<FileResponseDto> getAllFiles();
 
     List<FileResponseDto> getUserFilesByUserName(String username);
+
     UserFile getFileById(Long fileId);
 }

@@ -1,6 +1,5 @@
 package com.project.serviceImpl;
 
-import com.project.controller.NotificationController;
 import com.project.entity.UserFile;
 import com.project.mapper.FileMapper;
 import com.project.repository.UserFileRepository;
@@ -8,9 +7,7 @@ import com.project.requestDto.UserUploadRequestDto;
 import com.project.responseDto.FileResponseDto;
 import com.project.responseDto.UserUploadResponseDto;
 import com.project.service.FileService;
-import com.project.service.NotificationService;
 import com.project.utility.FileStorageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,20 +22,14 @@ public class FileServiceImpl implements FileService {
 
     private final UserFileRepository userFileRepository;
     private final FileStorageUtil fileStorageUtil;
-    private final NotificationService notificationService;
-    private final SimpMessagingTemplate messagingTemplate;
 
     // Constructor injection to let Spring inject the required dependencies
     public FileServiceImpl(
             UserFileRepository userFileRepository,
-            FileStorageUtil fileStorageUtil,
-            NotificationService notificationService, // Inject NotificationService!
-            SimpMessagingTemplate messagingTemplate
+            FileStorageUtil fileStorageUtil
     ) {
         this.userFileRepository = userFileRepository;
         this.fileStorageUtil = fileStorageUtil;
-        this.notificationService = notificationService;
-        this.messagingTemplate = messagingTemplate;
     }
 
     @Override

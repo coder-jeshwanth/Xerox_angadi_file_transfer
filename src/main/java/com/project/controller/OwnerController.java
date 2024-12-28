@@ -3,17 +3,13 @@ package com.project.controller;
 import com.project.entity.Owner;
 import com.project.entity.UserFile;
 import com.project.repository.OwnerRepository;
-import com.project.requestDto.OwnerLoginRequestDto;
 import com.project.responseDto.FileResponseDto;
 import com.project.responseDto.OwnerLoginResponseDto;
 import com.project.security.JwtUtils;
 import com.project.service.FileService;
-import com.project.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +28,6 @@ public class OwnerController {
     private final JwtUtils jwtUtils;
     private final FileService fileService;
 
-    @Autowired
-    private NotificationService notificationService;
 
     public OwnerController(OwnerRepository ownerRepository, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, FileService fileService) {
         this.ownerRepository = ownerRepository;
@@ -92,8 +86,7 @@ public class OwnerController {
                         .body(createErrorResponse("User not found", "The file does not belong to any user."));
             }
 
-            // Notify the specific user
-            notificationService.notifyUser(username, "File with ID " + id + " has been printed and deleted successfully!");
+
 
             return ResponseEntity.ok(createSuccessResponse(
                     "File printed and deleted successfully!",
