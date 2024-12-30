@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://xerox-angadi-file-transfer-frontend.vercel.app")
 public class UserFileUploadController {
 
     private final FileService fileService;

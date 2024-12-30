@@ -65,8 +65,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // Frontend origin
-        configuration.addAllowedOrigin("http://192.168.29.30:3000"); // Frontend origin
+        configuration.addAllowedOrigin("https://xerox-angadi-file-transfer-frontend.vercel.app/"); // Frontend origin
         configuration.addAllowedMethod("*"); // Allow all HTTP methods
         configuration.addAllowedHeader("*"); // Allow all headers
         configuration.setAllowCredentials(true); // Allow cookies/credentials

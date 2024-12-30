@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://xerox-angadi-file-transfer-frontend.vercel.app")
 public class OwnerController {
 
     private final OwnerRepository ownerRepository;

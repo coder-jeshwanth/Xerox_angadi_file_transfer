@@ -8,7 +8,6 @@ import com.project.responseDto.FileResponseDto;
 import com.project.responseDto.UserUploadResponseDto;
 import com.project.service.FileService;
 import com.project.utility.FileStorageUtil;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
